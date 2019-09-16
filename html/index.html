@@ -1,23 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Library project</title>
   <link href="../css/style.css" rel="stylesheet">
-  <script src="../javascript/javascript.js"></script>
 </head>
+
 <body>
-    <input id="book-title" type="text">
-    <button onclick="addBookToLibrary()">
+  <h2>Add a new book!</h2>
+  <button id='formToggle'>Add a new Book!</button>
+  <form id='newBookForm'>
+    <input id="book-title" type="text" placeholder='Book title'><br />
+    <input id="book-author" type="text" placeholder='Book author'><br />
+    <input id="book-pages" type="number" placeholder='Number of pages'><br />
+    <button id='submit'>
       submit
     </button>
-    <h1>
-      list of books
-    </h1>
-    <ul id="books-list">
+  </form>
+  <h1>
+    list of books
+  </h1>
+  <div id="books-list">
 
-    </ul>
+  </div>
+
+  <script src="../javascript/javascript.js"></script>
 </body>
+
 </html>
