@@ -1,4 +1,6 @@
 let myLibrary = [];
+myLibrary = JSON.parse(localStorage.getItem("myLibrary"));
+render()
 
 function Book(title, author, numOfPages) {
   this.title = title,
@@ -7,6 +9,9 @@ function Book(title, author, numOfPages) {
     this.read = false
 }
 
+function update_local_storage() {
+  localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+}
 
 // show form
 let newBookForm = document.getElementById('newBookForm')
@@ -21,7 +26,9 @@ document.getElementById('formToggle').addEventListener('click', (event) => {
 // add a book
 document.getElementById('submit').addEventListener('click', (event) => {
   event.preventDefault()
-  if (document.getElementById("book-title").value !== '' || document.getElementById("book-author").value !== '' || document.getElementById("book-pages").value !== '') {
+  if (document.getElementById("book-title").value !== '' &&
+    document.getElementById("book-author").value !== '' &&
+    document.getElementById("book-pages").value !== '') {
     addBookToLibrary()
   }
 })
@@ -32,7 +39,7 @@ function addBookToLibrary() {
   pages = document.getElementById("book-pages").value;
   newBook = new Book(title, author, pages)
   myLibrary.push(newBook)
-  console.log(myLibrary)
+  update_local_storage()
   document.getElementById('newBookForm').reset()
   render()
 }
@@ -70,11 +77,11 @@ function render() {
         myLibrary = myLibrary.filter((ele) => {
           return ele != element
         })
+        update_local_storage()
         render()
       })
       nodeDelete.appendChild(textnodeDelete)
       node.appendChild(nodeDelete)
-
 
       if (!element.read) {
         let nodeRead = document.createElement("button");
@@ -82,16 +89,14 @@ function render() {
         nodeRead.addEventListener('click', (event) => {
           element.read ? element.read = false : element.read = true;
           nodeRead.style.display = 'none';
+          update_local_storage();
           render()
         })
         nodeRead.appendChild(textnodeRead)
         node.appendChild(nodeRead)
       }
 
-
       bookList.appendChild(node)
-
-
     }
   )
 }
