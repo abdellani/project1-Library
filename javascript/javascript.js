@@ -1,12 +1,11 @@
-let myLibrary = [];
-myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
+let myLibrary = JSON.parse(localStorage.getItem('myLibrary')) !== null ? JSON.parse(localStorage.getItem('myLibrary')) : [];
 render();
 
-function Book(title, author, numOfPages) {
+function Book(title, author, numOfPages, readStatus) {
   this.title = title,
-  this.author = author,
-  this.pages = numOfPages,
-  this.read = false;
+    this.author = author,
+    this.pages = numOfPages,
+    this.read = readStatus;
 }
 
 function update_local_storage() {
@@ -16,11 +15,7 @@ function update_local_storage() {
 // show form
 const newBookForm = document.getElementById('newBookForm');
 document.getElementById('formToggle').addEventListener('click', (event) => {
-  if (newBookForm.style.display === 'block') {
-    newBookForm.style.display = 'none';
-  } else {
-    newBookForm.style.display = 'block';
-  }
+  newBookForm.style.display = newBookForm.style.display === 'block' ? 'none' : 'block'
 });
 
 // add a book
@@ -37,7 +32,8 @@ function addBookToLibrary() {
   title = document.getElementById('book-title').value;
   author = document.getElementById('book-author').value;
   pages = document.getElementById('book-pages').value;
-  newBook = new Book(title, author, pages);
+  read = document.getElementById('readToogle').checked;
+  newBook = new Book(title, author, pages, read);
   myLibrary.push(newBook);
   update_local_storage();
   document.getElementById('newBookForm').reset();
